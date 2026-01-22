@@ -1,0 +1,13 @@
+# WordPress-specific
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+
+# General
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+
+# Plugin-specific (if any)
+# Add any sensitive or generated files here
