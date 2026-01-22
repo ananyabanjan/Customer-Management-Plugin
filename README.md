@@ -13,4 +13,8 @@ custom-customer-management/
 │       └── frontend-scripts.js  # Frontend JS for AJAX
 ├── README.md
 |── sql/
+<<<<<<< HEAD
 │   ├── custom_customers_dump.sql
+=======
+│   ├── custom_customers_dump.sql
+>>>>>>> 9fb3132 (Initial commit: custom customer management plugin)
