@@ -37,18 +37,26 @@ class Customer_Database {
         $user->set_role('contributor');
     }
 
-    public static function get_customers($per_page = 10, $page = 1, $search = '') {
+     public static function get_customers($per_page = 10, $page = 1, $search = '', $include_inactive = false) {
         global $wpdb;
         $table = $wpdb->prefix . 'custom_customers';
         $offset = ($page - 1) * $per_page;
-        $where = $search ? $wpdb->prepare("WHERE name LIKE %s OR email LIKE %s", '%' . $search . '%', '%' . $search . '%') : '';
+        
+        // Build the WHERE clause: Include status filter only if not including inactive
+        $where_clause = '';
+        if (!$include_inactive) {
+            $where_clause = "WHERE status = 'active'";
+        }
+        if ($search) {
+            $where_clause .= ($where_clause ? ' AND' : 'WHERE') . $wpdb->prepare(" (name LIKE %s OR email LIKE %s)", '%' . $search . '%', '%' . $search . '%');
+        }
         
         // Get total count for pagination
-        $total_count = $wpdb->get_var("SELECT COUNT(*) FROM $table $where");
+        $total_count = $wpdb->get_var("SELECT COUNT(*) FROM $table $where_clause");
         $total_pages = ceil($total_count / $per_page);
         
         // Get paginated results
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table $where LIMIT %d OFFSET %d", $per_page, $offset));
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table $where_clause LIMIT %d OFFSET %d", $per_page, $offset));
         foreach ($results as $customer) {
             $customer->age = self::calculate_age($customer->dob);
         }
