@@ -24,13 +24,13 @@ class Customer_List_Table extends WP_List_Table {
         );
     }
 
-    public function prepare_items() {
+   public function prepare_items() {
         $per_page = 10;
         $current_page = $this->get_pagenum();
         $search = isset($_REQUEST['s']) ? sanitize_text_field($_REQUEST['s']) : '';
         
-        // Get data from updated Customer_Database
-        $data = Customer_Database::get_customers($per_page, $current_page, $search);
+        // Get data from updated Customer_Database (now includes inactive for backend)
+        $data = Customer_Database::get_customers($per_page, $current_page, $search, true);  // Pass true to include inactive
         $customers = $data['customers']; // Extract the array of customer objects
         $total_items = $data['total_count']; // Use the accurate total count from the database
 
