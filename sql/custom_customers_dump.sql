@@ -7,7 +7,7 @@ CREATE TABLE `wp_custom_customers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
+  `phone` varchar(20) NOT NULL, --Stored as VARCHAR to preserve leading zeros
   `dob` date NOT NULL,
   `gender` enum('Male','Female','Other') NOT NULL,
   `cr_number` varchar(50) NOT NULL,
