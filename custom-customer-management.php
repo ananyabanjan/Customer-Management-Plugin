@@ -49,12 +49,6 @@ function ccm_deactivate() {
 }
 
 // Enqueue scripts and styles
-add_action('admin_enqueue_scripts', 'ccm_admin_scripts');
-function ccm_admin_scripts() {
-    wp_enqueue_style('ccm-admin-styles', plugin_dir_url(__FILE__) . 'assets/css/admin-styles.css');
-    wp_enqueue_script('ccm-admin-scripts', plugin_dir_url(__FILE__) . 'assets/js/admin-scripts.js', array('jquery'), '1.0', true);
-}
-
 add_action('wp_enqueue_scripts', 'ccm_frontend_scripts');
 function ccm_frontend_scripts() {
     // Only enqueue on pages with the shortcode to avoid loading everywhere
